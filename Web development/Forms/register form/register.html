@@ -5,6 +5,38 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Register Here</title>
         <link rel="stylesheet" href="register.css">
+        <script>
+            function validateForm() {
+                let name = document.forms["registerForm"]["Name"].value;
+                let dob = document.forms["registerForm"]["dob"].value;
+                let email = document.forms["registerForm"]["gmail"].value;
+                let password = document.forms["registerForm"]["pass"].value;
+                let confirmPassword = document.forms["registerForm"]["pass1"].value;
+    
+                if (name == "" || dob == "" || email == "" || password == "" || confirmPassword == "") {
+                    alert("All fields must be filled out!");
+                    return false;
+                }
+    
+                let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+                if (!email.match(emailPattern)) {
+                    alert("Invalid email format!");
+                    return false;
+                }
+    
+                if (password.length < 6) {
+                    alert("Password must be at least 6 characters long!");
+                    return false;
+                }
+    
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match!");
+                    return false;
+                }
+    
+                return true;
+            }
+        </script>
     </head>
     <body>
     <video autoplay loop muted playsinline>
@@ -15,16 +47,16 @@
     <center>
     <h2 class="register">REGISTER HERE....</h2><br>
     <div class="container">
-    <input type="text" name="Name" placeholder="  Username" class="user">
+    <input type="text" name="Name" placeholder="  Username" class="user" required>
     <br><br>
     <label for="dob" class="dob-label"><b>DOB:</b></label>
-    <input type="date" id="dob" name="dob" placeholder="Date Of Birth">
+    <input type="date" id="dob" name="dob" placeholder="Date Of Birth" required>
     <br><br>
-    <input type="email" id="gmail" name="gmail" placeholder="  Email">
+    <input type="email" id="gmail" name="gmail" placeholder="  Email" required>
     <br><br>
-    <input type="password" class="pass" name="pass" placeholder="  Password">
+    <input type="password" class="pass" name="pass" placeholder="  Password" required>
     <br><br>
-    <input type="password" class="pass" name="pass1" placeholder="  Confirm Password">
+    <input type="password" class="pass" name="pass1" placeholder="  Confirm Password" required>
     <br><br>
     </div>
     <button id="sb">Submit</button> 
