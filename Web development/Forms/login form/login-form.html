@@ -5,7 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="login-form.css">
-    
+    <script>
+        function validateLogin() {
+            let username = document.forms["loginForm"]["Username"].value;
+            let password = document.forms["loginForm"]["password"].value;
+
+            if (username == "" || password == "") {
+                alert("Both fields are required!");
+                return false;
+            }
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -21,6 +38,7 @@
         <input type="password" name="password" placeholder="Password" class="pw"><br><br>
         <button class="login_submit">Submit</button><br><br>
         <label >or</label><br><br>
+        <a href="/Web development/Forms/register form/register.html" class="click-here">Click here to register</a>
         </center>
     </form>
 </div>

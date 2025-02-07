@@ -1,36 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Here</title>
-    <link rel="stylesheet" href="register.css">
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register Here</title>
+        <link rel="stylesheet" href="register.css">
+    </head>
+    <body>
     <video autoplay loop muted playsinline>
         <source src="background.mp4" type="video/mp4">
     </video>
     <center>
-        <h1 class="heading" ondblclick="changeColor(this)">TOURIST MANAGEMENT SYSTEM</h1>
-        <form id="registrationForm">
-            <h2 class="register">REGISTER HERE....</h2>
-            <div class="container">
-                <input type="text" id="username" name="Name" placeholder="  Username" class="user" onkeyup="keyEventHandler(event)">
-                <br><br>
-                <label for="dob" class="dob-label"><b>DOB:</b></label>
-                <input type="date" id="dob" name="dob" placeholder="Date Of Birth" onchange="dobChanged()">
-                <br><br>
-                <input type="email" id="gmail" name="gmail" placeholder="  Email" readonly>
-                <br><br>
-                <input type="password" id="password" class="pass" name="pass" placeholder="  Password">
-                <br><br>
-                <input type="password" id="confirmPassword" class="pass" name="pass1" placeholder="  Confirm Password">
-                <br><br>
-                <input type="hidden" id="userType" value="tourist">
-            </div>
-            <button id="sb" type="submit">Submit</button> 
-        </form>
-    </center>
-    <script src="registe.js"></script>
-</body>
-</html>
+    <h2 class="register">REGISTER HERE....</h2><br>
+    <div class="container">
+    <input type="text" name="Name" placeholder="  Username" class="user">
+    <br><br>
+    <label for="dob" class="dob-label"><b>DOB:</b></label>
+    <input type="date" id="dob" name="dob" placeholder="Date Of Birth">
+    <br><br>
+    <input type="email" id="gmail" name="gmail" placeholder="  Email">
+    <br><br>
+    <input type="password" class="pass" name="pass" placeholder="  Password">
+    <br><br>
+    <input type="password" class="pass" name="pass1" placeholder="  Confirm Password">
+    <br><br>
+    </div>
+    <button id="sb">Submit</button> 
+</center>
+</form>
+    </body>
+    </html>

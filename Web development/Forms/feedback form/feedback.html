@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback</title>
     <link rel="stylesheet" href="feedback.css">
+    <script>
+        function validateFeedback() {
+            let email = document.forms["feedbackForm"]["email"].value;
+            let feedback = document.getElementById("feedback-area").value;
+
+            if (email == "" || feedback == "") {
+                alert("Both fields are required!");
+                return false;
+            }
+
+            let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+            if (!email.match(emailPattern)) {
+                alert("Invalid email format!");
+                return false;
+            }
+
+            if (feedback.length < 10) {
+                alert("Feedback must be at least 10 characters long!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     

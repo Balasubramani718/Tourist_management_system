@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling with Timer & Session</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 700px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        select, input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px 0;
+            width: 250px;
+        }
+
+        #hover-box {
+            width: 250px;
+            height: 120px;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            text-align: center;
+            padding-top: 45px;
+            font-size: 18px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        #hover-box:hover {
+            background-color: lightblue;
+        }
+
+        .timer-display {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .session-display {
+            font-size: 18px;
+            color: #007BFF;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .event-section {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            font-size: 20px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .event-actions {
+            margin-bottom: 20px;
+        }
+
+        .event-actions button {
+            background-color: #007BFF;
+            transition: background-color 0.3s ease;
+        }
+
+        .event-actions button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        let timer;
+        let countdown = 10;
+
+        if (sessionStorage.getItem("sessionData")) {
+            document.getElementById("session-info").innerText = "Session Data: " + sessionStorage.getItem("sessionData");
+        } else {
+            document.getElementById("session-info").innerText = "No session data found.";
+        }
+
+        function storeSessionData(data) {
+            sessionStorage.setItem("sessionData", data);
+            document.getElementById("session-info").innerText = "Session Data: " + sessionStorage.getItem("sessionData");
+        }
+
+        function handleClick() {
+            alert("Button Clicked!");
+            storeSessionData("Button Clicked Event");
+        }
+
+        function handleChange(event) {
+            alert("Selected Country: " + event.target.value);
+            storeSessionData("Country Selected: " + event.target.value);
+        }
+
+        function handleKeyDown(event) {
+            console.log("Key Pressed: " + event.key);
+            storeSessionData("Key Pressed: " + event.key);
+        }
+
+        function handleMouseOver() {
+            document.getElementById("hover-box").style.backgroundColor = "lightblue";
+        }
+
+        function handleMouseOut() {
+            document.getElementById("hover-box").style.backgroundColor = "white";
+        }
+
+        document.addEventListener("click", function(event) {
+            console.log("Capturing Phase - Click detected on: " + event.target.tagName);
+        }, true);
+
+        function startTimer() {
+            document.getElementById("timer-display").innerText = "Starting countdown...";
+            timer = setInterval(() => {
+                if (countdown > 0) {
+                    document.getElementById("timer-display").innerText = "Time Left: " + countdown + " seconds";
+                    countdown--;
+                } else {
+                    clearInterval(timer);
+                    document.getElementById("timer-display").innerText = "Time's up!";
+                    storeSessionData("Timer ended at " + new Date().toLocaleString());
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            document.getElementById("timer-display").innerText = "Timer Stopped!";
+            storeSessionData("Timer stopped at " + new Date().toLocaleString());
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+
+        <h2>Event Handling with Timer & Session</h2>
+
+        <div class="session-display" id="session-info">
+        </div>
+
+        <div class="event-section">
+            <div class="section-header">1. Button Click Event</div>
+            <button onclick="handleClick()">Click Me</button>
+        </div>
+
+        <div class="event-section">
+            <div class="section-header">2. Country Select Event</div>
+            <select id="country" onchange="handleChange(event)">
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="Japan">Japan</option>
+            </select>
+        </div>
+
+        <div class="event-section">
+            <div class="section-header">3. Key Press Event</div>
+            <input type="text" placeholder="Type something..." onkeydown="handleKeyDown(event)">
+        </div>
+
+        <div class="event-section">
+            <div class="section-header">4. Mouse Hover Event</div>
+            <div id="hover-box" 
+                 onmouseover="handleMouseOver()" 
+                 onmouseout="handleMouseOut()">Hover over me</div>
+        </div>
+
+        <div class="event-section">
+            <div class="section-header">5. Countdown Timer</div>
+            <div id="timer-display" class="timer-display">Click "Start Timer" to begin countdown</div>
+            <div class="event-actions">
+                <button onclick="startTimer()">Start Timer</button>
+                <button onclick="stopTimer()">Stop Timer</button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
