@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.explore{
+    padding-top: 13%;
+    display: block;
+}
+
+.i_region{
+    padding: 10px 10px;
+    width: 180px;
+    height: 25px;
+}
+
+.max-days{
+    padding: 10px 10px;
+    width: 180px;
+    height: 25px;
+}
+
+.explore-submit{
+    border: none;
+    background-color: black;
+    color: white;
+    width: 80px;
+    height: 30px;
+}
