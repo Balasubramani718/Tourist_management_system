@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourist Management System</title>
+    <!-- jQuery and jQuery UI -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        nav {
+            background-color: #34495e;
+            padding: 10px 0;
+        }
+        
+        .menu {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+        }
+        
+        .menu li {
+            margin: 0 15px;
+        }
+        
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        
+        .menu a:hover {
+            background-color: #2980b9;
+        }
+        
+        .banner {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+        }
+        
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+        
+        .quote-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            width: 80%;
+        }
+        
+        .quote {
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        
+        .author {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        
+        .auth-links {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .auth-links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 12px 25px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .auth-links a:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            margin-top: auto;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        /* New styles for featured destinations */
+        .featured-section {
+            padding: 40px 20px;
+            background-color: #f5f7fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 2rem;
+        }
+        
+        #featured-destinations {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .destination-card {
+            width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: white;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .destination-card h3 {
+            padding: 15px 15px 5px;
+            color: #2c3e50;
+        }
+        
+        .destination-card p {
+            padding: 0 15px 10px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .destination-card .price {
+            display: block;
+            padding: 0 15px 10px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .destination-card .view-details {
+            display: block;
+            width: 100%;
+            padding: 12px 0;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .destination-card .view-details:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Search styles */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        #search-destination {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        #search-destination:focus {
+            border-color: #3498db;
+        }
+        
+        /* Newsletter styles */
+        .newsletter {
+            background-color: #34495e;
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter h2 {
+            margin-bottom: 15px;
+        }
+        
+        .newsletter p {
+            margin-bottom: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        #newsletter-email {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+        }
+        
+        #newsletter-form button {
+            padding: 12px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #newsletter-form button:hover {
+            background-color: #c0392b;
+        }
+        
+        #newsletter-message {
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .success {
+            color: #2ecc71;
+        }
+        
+        .error {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="title">Tourist Management System</h1>
+        <div class="search-container">
+            <input type="text" id="search-destination" placeholder="Search for destinations...">
+        </div>
+    </header>
+    
+    <nav>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Destinations</a></li>
+            <li><a href="#">Tours</a></li>
+            <li><ahref="#">Packages</a></li>
+            <li><ahref="#">About Us</a></li>
+            <li><ahref="#">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section class="banner">
+        <img src="bg1.jpg" alt="Tourism Scene" class="banner-img">
+        <div class="quote-container">
+            <p class="quote" id="quote">"The world is a book and those who do not travel read only one page."</p>
+            <p class="author" id="author">- Saint Augustine</p>
+        </div>
+    </section>
+    
+    <section class="featured-section">
+        <h2 class="section-title">Featured Destinations</h2>
+        <div id="featured-destinations">
+            <!-- Destinations will be loaded here via AJAX -->
+            <p>Loading featured destinations...</p>
+        </div>
+    </section>
+    
+    <div class="auth-links">
+        <a href="../Forms/register%20form/register.html">New User - Sign Up</a>
+        <a href="../Forms/login%20form/login-form.html">Existing User - Login</a>
+    </div>
+    
+    <section class="newsletter">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Get the latest travel deals, destination insights, and exclusive offers delivered straight to your inbox.</p>
+        <form id="newsletter-form">
+            <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+        <p id="newsletter-message"></p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Tourist Management System. All rights reserved.</p>
+    </footer>
+
+    <!-- Base JavaScript for quotes rotation -->
+    <script>
+        // Array of tourism quotes
+        const quotes = [
+            {
+                text: "The world is a book and those who do not travel read only one page.",
+                author: "Saint Augustine"
+            },
+            {
+                text: "Travel makes one modest. You see what a tiny place you occupy in the world.",
+                author: "Gustave Flaubert"
+            },
+            {
+                text: "The real voyage of discovery consists not in seeking new landscapes, but in having new eyes.",
+                author: "Marcel Proust"
+            },
+            {
+                text: "Travel is the only thing you buy that makes you richer.",
+                author: "Anonymous"
+            },
+            {
+                text: "Wherever you go, go with all your heart.",
+                author: "Confucius"
+            }
+        ];
+        
+        // Function to change quote randomly
+        function changeQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quoteElement = document.getElementById('quote');
+            const authorElement = document.getElementById('author');
+            
+            quoteElement.textContent = `"${quotes[randomIndex].text}"`;
+            authorElement.textContent = `- ${quotes[randomIndex].author}`;
+        }
+        
+        // Change quote every 8 seconds
+        setInterval(changeQuote, 8000);
+        
+        // Initial quote change after 2 seconds
+        setTimeout(changeQuote, 2000);
+    </script>
+    
+    <!-- Include our custom jQuery and AJAX functions -->
+    <script src="js/tourist-management.js"></script>
+</body>
+</html>
