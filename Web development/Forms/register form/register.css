@@ -16,6 +16,7 @@ video {
     z-index: -1; /* Sends the video to the background */
   }
 
+
 .heading{
     padding: 30px 30px;
     font-family: "Poppins", serif;
